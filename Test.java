@@ -30,6 +30,8 @@ public class Test {
 		sample.add_edge("D",2,"F",2,def);
 		JoinTree<String> test = sample.convertToJoinTree();
 		System.out.println(test.makeConsistent());
+		Vertex<String> E = new Vertex<>("A", 2);
+		test.enter_evidence(E, 1);
 		double [] result = test.find_all_probabilities();
 		for(int i = 0; i < result.length; i++)
 			System.out.println(result[i]);

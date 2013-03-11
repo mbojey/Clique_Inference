@@ -9,6 +9,7 @@ public class Vertex<K> {
 	public ArrayList<Integer> parent_state = new ArrayList<Integer>(1);
 	private K value; 
 	public Potential<K> probabilities;
+	public Potential<K> likelihood;
 	private Random rand = new Random();
 	
 	//Constructor, simple enough, takes a value and number of possible states and makes a vertex
@@ -91,6 +92,21 @@ public class Vertex<K> {
 
 	public void setNum_states(int num_states) {
 		this.num_states = num_states;
+	}
+
+	public void initialize_likelihood() {
+		double[] temp = new double[num_states];
+		for(int i = 0; i < temp.length; i++)
+			temp[i] = 1;
+		likelihood = new Potential<K>(temp, this);
+	}
+
+	public void set_likelihood(int state) {
+		double[] temp = new double[num_states];
+		for(int i = 0; i < temp.length; i++)
+			temp[i] = 0;
+		temp[state] = 1;
+		likelihood = new Potential<K>(temp, this);
 	}
 	
 }

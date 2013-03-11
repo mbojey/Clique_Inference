@@ -101,6 +101,7 @@ public class JoinTree<K> {
 	
 	//Takes each vertex and changes phi_x for it's families clique.
 	private void fillFamily(Vertex<K> vertex) {
+		vertex.initialize_likelihood();
 		Clique<K> temp = new Clique<K>(vertex.parents);
 		temp.add_member(vertex);
 		temp.setPhi_x(vertex.probabilities);
@@ -257,4 +258,33 @@ public class JoinTree<K> {
 		return result;
 	}
 
+	//Enters evidence by being given a variable and the state that it is in
+	public void enter_evidence(Vertex<K> variable, int state){
+		vertices.get(find_in_vertices(variable)).set_likelihood(state);
+		setPhi();
+		for(int k = 0; k < vertices.size(); k++)
+			update_family(vertices.get(k));
+		propagate();
+	}
+
+	private int find_in_vertices(Vertex<K> vertex) {
+		int position = 0;
+		for(int i = 0; i < vertices.size(); i++)
+			if(vertices.get(i).equals(vertex)){
+				position = i;
+				break;
+			}				
+		return position;
+	}
+
+	private void update_family(Vertex<K> vertex) {
+		Clique<K> temp = new Clique<K>(vertex.parents);
+		temp.add_member(vertex);
+		temp.setPhi_x(vertex.probabilities);
+		int i = 0;
+		while(!cliques.get(i).contains_subset(temp))
+			i++;
+		cliques.get(i).setPhi_x(cliques.get(i).getPhi_x().multiply_potentials(temp.getPhi_x()));
+		cliques.get(i).setPhi_x(cliques.get(i).getPhi_x().multiply_potentials(vertex.likelihood));
+	}
 }
