@@ -1,3 +1,4 @@
+
 //Simple edge class
 public class Edge<K>{
 
@@ -30,5 +31,8 @@ public class Edge<K>{
 		if(e.getOrigin().equals(origin)&&e.getDestination().equals(destination))
 			return true;
 		return false;
+	}
+	public String toString(){
+		return origin.toString()+ "-"+ destination.toString();
 	}
 }

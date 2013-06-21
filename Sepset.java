@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 public class Sepset<K> {
 
@@ -77,6 +78,13 @@ public class Sepset<K> {
 	}
 	public void setPhi_x(Potential<K> phi_x) {
 		this.phi_x = phi_x;
+	}
+	
+	public String toString(){
+		String result = "";
+		result += "Origin" + origin.toString() + ",";
+		result += "Destination" + destination.toString();
+		return result;
 	}
 	
 }

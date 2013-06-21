@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 public class Clique<K> {
 
@@ -100,12 +101,21 @@ public class Clique<K> {
 	
 	//Sets phi_x to initially be a potential with 3 dimensions and all values == 1;
 	public boolean initializePhi_x() {
-		double[][][] temp_array = new double[members.get(0).getNum_states()][members.get(1).getNum_states()][members.get(2).getNum_states()];
-		for(int i = 0; i < temp_array.length; i++)
-			for(int j = 0; j < temp_array[0].length; j++)
-				for(int k = 0; k < temp_array[0][0].length; k++)
-					temp_array[i][j][k] = 1;
-		setPhi_x(new Potential<K>(temp_array, members.get(0), members.get(1), members.get(2)));
+		if(members.size() == 3){
+			double[][][] temp_array = new double[members.get(0).getNum_states()][members.get(1).getNum_states()][members.get(2).getNum_states()];
+			for(int i = 0; i < temp_array.length; i++)
+				for(int j = 0; j < temp_array[0].length; j++)
+					for(int k = 0; k < temp_array[0][0].length; k++)
+						temp_array[i][j][k] = 1;
+			setPhi_x(new Potential<K>(temp_array, members.get(0), members.get(1), members.get(2)));
+		}
+		else{
+			double[][]temp_array = new double[members.get(0).getNum_states()][members.get(1).getNum_states()];
+			for(int i = 0; i < temp_array.length; i++)
+				for(int j = 0; j < temp_array[0].length; j++)
+						temp_array[i][j] = 1;
+			setPhi_x(new Potential<K>(temp_array, members.get(0), members.get(1)));
+		}
 		return true;
 	}
 	
@@ -159,6 +169,13 @@ public class Clique<K> {
 
 	public void setMark(boolean mark) {
 		this.mark = mark;
+	}
+	
+	public String toString(){
+		String result = "";
+		for(int i = 0; i < members.size(); i++)
+			result += members.get(i).toString() + ",";
+		return result;
 	}
 
 	

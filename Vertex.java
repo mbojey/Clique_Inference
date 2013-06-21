@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.ArrayList;
 public class Vertex<K> {
@@ -26,6 +27,9 @@ public class Vertex<K> {
 			normalize(temp);
 		}
 		probabilities = new Potential<K>(temp, this);
+	}
+	public void setprobabilties(Potential<K> thing){
+	    probabilities = thing;
 	}
 	
 	//Given probability values sets the potential for a vertex with no parents
@@ -109,4 +113,11 @@ public class Vertex<K> {
 		likelihood = new Potential<K>(temp, this);
 	}
 	
+	public String toString(){
+		return value.toString();
+	}
+	
+	public void changeValue(K newvalue){
+	    value = newvalue;
+	}
 }
